@@ -1,19 +1,19 @@
 CREATE TABLE manada (
-	region VARCHAR(255) NOT NULL,
-	origen VARCHAR(255) NOT NULL,
+	region VARCHAR(255),
+	origen VARCHAR(255),
 	temperatura DECIMAL(10, 2),
 	poblacion INT CHECK (poblacion >= 0),
-	CONSTRAINT pk_manada PRIMARY KEY (region, origen)
+	PRIMARY KEY (region, origen)
 );
 
 CREATE TABLE lobo (
-	nombre VARCHAR(255) NOT NULL,
-	region VARCHAR(255) NOT NULL,
-	origen VARCHAR(255) NOT NULL,
+	nombre VARCHAR(255),
+	region VARCHAR(255),
+	origen VARCHAR(255),
 	peso INT CHECK (peso >= 0),
 	edad INT CHECK (edad >= 0),
-	CONSTRAINT pk_lobo PRIMARY KEY (nombre, region, origen),
-	CONSTRAINT fk_lobo FOREIGN KEY (region, origen) REFERENCES manada(region, origen)
+	PRIMARY KEY (nombre, region, origen),
+	FOREIGN KEY (region, origen) REFERENCES manada(region, origen)
 );
 
 CREATE TABLE rastreador (
@@ -22,14 +22,14 @@ CREATE TABLE rastreador (
 );
 
 CREATE TABLE encuentra (
-	nombre VARCHAR(255) NOT NULL,
-	region VARCHAR(255) NOT NULL,
-	origen VARCHAR (255) NOT NULL,
-	id INT NOT NULL,
-	fecha DATE NOT NULL,
-	CONSTRAINT encuentra_pk PRIMARY KEY (nombre, region, origen, id, fecha),
-	CONSTRAINT encuentra_fk_lobo FOREIGN KEY (nombre, region, origen) REFERENCES lobo(nombre, region, origen),
-	CONSTRAINT encuentra_fk_rastrador FOREIGN KEY (id) REFERENCES rastreador(id)
+	nombre VARCHAR(255),
+	region VARCHAR(255),
+	origen VARCHAR (255),
+	id INT,
+	fecha DATE,
+	PRIMARY KEY (nombre, region, origen, id, fecha),
+	FOREIGN KEY (nombre, region, origen) REFERENCES lobo(nombre, region, origen),
+	FOREIGN KEY (id) REFERENCES rastreador(id)
 );
 
 -- Manadas existentes
@@ -48,11 +48,13 @@ INSERT INTO rastreador VALUES (102, 56.75);
 INSERT INTO encuentra VALUES ('Akela', 'Patagonia', 'Sur', 101, '2025-10-20');
 INSERT INTO encuentra VALUES ('Balto', 'Cuyo', 'Norte', 102, '2025-10-19');
 
+INSERT INTO manada VALUES ('', 'Sur', -5.3, 12);
+
 -- Ver todas las manadas que existen
-SELECT region, origen, poblacion FROM manada;
+SELECT region, origen, poblacion 
+FROM manada;
 
 -- Todos los lobos existentes ordenados por region
 SELECT nombre, region, origen, peso, edad
 FROM lobo
 ORDER BY region;
-
