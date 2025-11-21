@@ -89,25 +89,26 @@ VALUES
 
 -- ################################################################################################################## --
 
+-- Todos los restaurantes con más de 3 estrellas.
 SELECT *
-FROM restaurante;
+FROM restaurante
+WHERE (cant_estrellas > 3);
 
-SELECT *
+-- Los nombres de los maestros y el restaurante en el que trabajan.
+SELECT nombre, restaurante
 FROM maestro;
 
+-- Los apodos de los participantes que tengan más de 25 años.
+SELECT apodo
+FROM participante
+WHERE (edad > 25);
+
+-- Los programas grabados después del número 1001.
 SELECT *
-FROM participante;
+FROM programa
+WHERE (grabacion > 1001);
 
-SELECT *
-FROM programa;
-
-SELECT *
-FROM plato;
-
-
-
-
-
-
-
-
+-- Todos los platos que sean veganos.
+SELECT plato
+FROM plato
+WHERE es_vegano;
